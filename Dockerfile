@@ -243,7 +243,6 @@ RUN sleep 91                                 \
         AR="$AR"                                      \
         RANLIB="$RANLIB"                              \
         STRIP="$STRIP"                                \
-        LIBS='-lz -lcrypto -lssl'                     \
  && make -j$(nproc)                                   \
  && make install                                      \
  && cd ..                                             \
