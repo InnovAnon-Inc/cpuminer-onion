@@ -9,7 +9,7 @@ ENV TEST=$TEST
 # TODO loooooooooong time
 RUN sleep 91
 
-FROM innovanon/void-base as builder
+FROM innovanon/void-base-pgo as builder
 COPY --from=profiler /var/cpuminer /var/cpuminer
 
 ARG CPPFLAGS
@@ -125,6 +125,7 @@ ENV RANLIB=
 ENV STRIP=
 RUN cd                           openssl              \
  && ./Configure --prefix=$PREFIX                      \
+        --cross-compile-prefix=$CHOST-                \
 	no-rmd160 no-sctp no-dso no-ssl2              \
 	no-ssl3 no-comp no-idea no-dtls               \
 	no-dtls1 no-err no-psk no-srp                 \
