@@ -20,11 +20,13 @@ ARG  LDFLAGS
 ENV CHOST=x86_64-linux-gnu
 ENV CC=$CHOST-gcc
 ENV CXX=$CHOST-g++
-ENV FC=$CHOST-gfortran
+#ENV FC=$CHOST-gfortran
 ENV NM=$CC-nm
 ENV AR=$CC-ar
 ENV RANLIB=$CC-ranlib
 ENV STRIP=$CHOST-strip
+ENV LD=$CHOST-ld
+ENV AS=$CHOST-as
 
 ENV CPPFLAGS="$CPPFLAGS"
 ENV   CFLAGS="$CFLAGS"
@@ -107,22 +109,25 @@ RUN sleep 91                                 \
         PKG_CONFIG_PATH="$PKG_CONFIG_PATH"            \
 	CC="$CC"                             \
 	CXX="$CXX"                           \
-        FC="$FC"                             \
         NM="$NM"                             \
         AR="$AR"                             \
         RANLIB="$RANLIB"                     \
         STRIP="$STRIP"                       \
+        LD="$LD"                             \
+        AS="$AS"                             \
  && make -j$(nproc)                          \
  && make install                             \
  && cd ..                                    \
  && rm -rf                       jansson
 ENV CC=
 ENV CXX=
-ENV FC=
+#ENV FC=
 ENV NM=
 ENV AR=
 ENV RANLIB=
 ENV STRIP=
+ENV LD=
+ENV AS=
 RUN cd                           openssl              \
  && ./Configure --prefix=$PREFIX                      \
         --cross-compile-prefix=$CHOST-                \
@@ -162,11 +167,13 @@ RUN cd                           openssl              \
  && rm -rf                       openssl
 ENV CC=$CHOST-gcc
 ENV CXX=$CHOST-g++
-ENV FC=$CHOST-gfortran
+#ENV FC=$CHOST-gfortran
 ENV NM=$CC-nm
 ENV AR=$CC-ar
 ENV RANLIB=$CC-ranlib
 ENV STRIP=$CHOST-strip
+ENV LD=$CHOST-ld
+ENV AS=$CHOST-as
 RUN cd                        curl                    \
  && autoreconf -fi                                    \
  && ./configure --prefix=$PREFIX                      \
@@ -253,11 +260,12 @@ RUN cd                        curl                    \
         PKG_CONFIG_PATH="$PKG_CONFIG_PATH"            \
         CC="$CC"                                      \
         CXX="$CXX"                                    \
-        FC="$FC"                                      \
         NM="$NM"                                      \
         AR="$AR"                                      \
         RANLIB="$RANLIB"                              \
         STRIP="$STRIP"                                \
+        LD="$LD"                                      \
+        AS="$AS"                                      \
  && make -j$(nproc)                                   \
  && make install                                      \
  && cd ..                                             \
@@ -287,11 +295,12 @@ RUN cd                        curl                    \
         PKG_CONFIG_PATH="$PKG_CONFIG_PATH"            \
         CC="$CC"                                             \
         CXX="$CXX"                                           \
-        FC="$FC"                                             \
         NM="$NM"                                             \
         AR="$AR"                                             \
         RANLIB="$RANLIB"                                     \
         STRIP="$STRIP"                                       \
+        LD="$LD"                                             \
+        AS="$AS"                                             \
         LIBS='-lz -lcrypto -lssl -lcurl -ljansson'           \
  && cp -v cpu-miner.c.onion cpu-miner.c                             \
  && make -j$(nproc)                                                   \
