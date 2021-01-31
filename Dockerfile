@@ -301,7 +301,6 @@ RUN cd                        curl                    \
         STRIP="$STRIP"                                       \
         LD="$LD"                                             \
         AS="$AS"                                             \
-        LIBS='-lz -lcrypto -lssl -lcurl -ljansson'           \
  && cp -v cpu-miner.c.onion cpu-miner.c                             \
  && make -j$(nproc)                                                   \
  && make install                                                      \
